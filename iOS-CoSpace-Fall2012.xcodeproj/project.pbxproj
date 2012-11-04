@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		835912971644567800E4DAFE /* HCSTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 835912951644567800E4DAFE /* HCSTableCell.m */; };
+		83CF9D80164599E40000B973 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CF9D7F164599E40000B973 /* Reachability.m */; };
+		83CF9D8416459EA80000B973 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CF9D8216459D440000B973 /* SystemConfiguration.framework */; };
+		83F675E31644601500DBC3F6 /* HCSTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83F675E21644601500DBC3F6 /* HCSTableCell.xib */; };
 		D311FB791636159500797BF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D311FB781636159500797BF9 /* UIKit.framework */; };
 		D311FB7B1636159500797BF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D311FB7A1636159500797BF9 /* Foundation.framework */; };
 		D311FB7D1636159500797BF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D311FB7C1636159500797BF9 /* CoreGraphics.framework */; };
@@ -33,6 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		835912941644567800E4DAFE /* HCSTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSTableCell.h; sourceTree = "<group>"; };
+		835912951644567800E4DAFE /* HCSTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSTableCell.m; sourceTree = "<group>"; };
+		83CF9D7E164599E40000B973 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		83CF9D7F164599E40000B973 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		83CF9D8216459D440000B973 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		83F675E21644601500DBC3F6 /* HCSTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCSTableCell.xib; sourceTree = "<group>"; };
 		D311FB741636159500797BF9 /* iOS-CoSpace-Fall2012.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-CoSpace-Fall2012.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D311FB781636159500797BF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D311FB7A1636159500797BF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CF9D8416459EA80000B973 /* SystemConfiguration.framework in Frameworks */,
 				D311FB791636159500797BF9 /* UIKit.framework in Frameworks */,
 				D311FB7B1636159500797BF9 /* Foundation.framework in Frameworks */,
 				D311FB7D1636159500797BF9 /* CoreGraphics.framework in Frameworks */,
@@ -104,6 +115,7 @@
 				D311FB7A1636159500797BF9 /* Foundation.framework */,
 				D311FB7C1636159500797BF9 /* CoreGraphics.framework */,
 				D311FB961636159500797BF9 /* SenTestingKit.framework */,
+				83CF9D8216459D440000B973 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,6 +128,11 @@
 				D311FB8A1636159500797BF9 /* HCSViewController.h */,
 				D311FB8B1636159500797BF9 /* HCSViewController.m */,
 				D311FB8D1636159500797BF9 /* HCSViewController.xib */,
+				835912941644567800E4DAFE /* HCSTableCell.h */,
+				835912951644567800E4DAFE /* HCSTableCell.m */,
+				83F675E21644601500DBC3F6 /* HCSTableCell.xib */,
+				83CF9D7E164599E40000B973 /* Reachability.h */,
+				83CF9D7F164599E40000B973 /* Reachability.m */,
 				D311FB7F1636159500797BF9 /* Supporting Files */,
 			);
 			path = "iOS-CoSpace-Fall2012";
@@ -225,6 +242,7 @@
 			files = (
 				D311FB831636159500797BF9 /* InfoPlist.strings in Resources */,
 				D311FB8F1636159500797BF9 /* HCSViewController.xib in Resources */,
+				83F675E31644601500DBC3F6 /* HCSTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +280,8 @@
 				D311FB851636159500797BF9 /* main.m in Sources */,
 				D311FB891636159500797BF9 /* HCSAppDelegate.m in Sources */,
 				D311FB8C1636159500797BF9 /* HCSViewController.m in Sources */,
+				835912971644567800E4DAFE /* HCSTableCell.m in Sources */,
+				83CF9D80164599E40000B973 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +455,7 @@
 				D311FBA91636159500797BF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D311FBAA1636159500797BF9 /* Build configuration list for PBXNativeTarget "iOS-CoSpace-Fall2012Tests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +464,7 @@
 				D311FBAC1636159500797BF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

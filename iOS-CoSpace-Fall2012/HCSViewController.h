@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
 
-@interface HCSViewController : UIViewController
+@interface HCSViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
+
+//@property (nonatomic, copy,   readwrite) NSString * filePath;
+//@property (nonatomic, strong, readwrite) NSOutputStream * fileStream;
+
+
+@property (nonatomic, retain, readwrite) NSMutableData * dataContainer;
+@property (nonatomic, strong, readwrite) NSURLConnection *  connection;
+@property (nonatomic, strong, readwrite) NSArray *responseItemsArray;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
