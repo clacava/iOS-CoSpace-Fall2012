@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83546D29164D6453001CE528 /* Tickets.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83546D27164D6453001CE528 /* Tickets.xcdatamodeld */; };
+		83546D2E164D6B34001CE528 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83546D2D164D6B34001CE528 /* CoreData.framework */; };
 		835912971644567800E4DAFE /* HCSTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 835912951644567800E4DAFE /* HCSTableCell.m */; };
 		83CF9D80164599E40000B973 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CF9D7F164599E40000B973 /* Reachability.m */; };
 		83CF9D8416459EA80000B973 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CF9D8216459D440000B973 /* SystemConfiguration.framework */; };
+		83E350F21651A811003DB567 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E350F11651A811003DB567 /* Ticket.m */; };
 		83F675E31644601500DBC3F6 /* HCSTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83F675E21644601500DBC3F6 /* HCSTableCell.xib */; };
 		D311FB791636159500797BF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D311FB781636159500797BF9 /* UIKit.framework */; };
 		D311FB7B1636159500797BF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D311FB7A1636159500797BF9 /* Foundation.framework */; };
@@ -37,11 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83546D28164D6453001CE528 /* Tickets.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tickets.xcdatamodel; sourceTree = "<group>"; };
+		83546D2D164D6B34001CE528 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		835912941644567800E4DAFE /* HCSTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSTableCell.h; sourceTree = "<group>"; };
 		835912951644567800E4DAFE /* HCSTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSTableCell.m; sourceTree = "<group>"; };
 		83CF9D7E164599E40000B973 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		83CF9D7F164599E40000B973 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		83CF9D8216459D440000B973 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		83E350F01651A811003DB567 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		83E350F11651A811003DB567 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		83F675E21644601500DBC3F6 /* HCSTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCSTableCell.xib; sourceTree = "<group>"; };
 		D311FB741636159500797BF9 /* iOS-CoSpace-Fall2012.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-CoSpace-Fall2012.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D311FB781636159500797BF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -69,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83546D2E164D6B34001CE528 /* CoreData.framework in Frameworks */,
 				83CF9D8416459EA80000B973 /* SystemConfiguration.framework in Frameworks */,
 				D311FB791636159500797BF9 /* UIKit.framework in Frameworks */,
 				D311FB7B1636159500797BF9 /* Foundation.framework in Frameworks */,
@@ -89,6 +97,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83546D21164D61AD001CE528 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				83546D27164D6453001CE528 /* Tickets.xcdatamodeld */,
+				83E350F01651A811003DB567 /* Ticket.h */,
+				83E350F11651A811003DB567 /* Ticket.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D311FB691636159500797BF9 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +129,7 @@
 		D311FB771636159500797BF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83546D2D164D6B34001CE528 /* CoreData.framework */,
 				D311FB781636159500797BF9 /* UIKit.framework */,
 				D311FB7A1636159500797BF9 /* Foundation.framework */,
 				D311FB7C1636159500797BF9 /* CoreGraphics.framework */,
@@ -133,6 +152,7 @@
 				83F675E21644601500DBC3F6 /* HCSTableCell.xib */,
 				83CF9D7E164599E40000B973 /* Reachability.h */,
 				83CF9D7F164599E40000B973 /* Reachability.m */,
+				83546D21164D61AD001CE528 /* Model */,
 				D311FB7F1636159500797BF9 /* Supporting Files */,
 			);
 			path = "iOS-CoSpace-Fall2012";
@@ -282,6 +302,8 @@
 				D311FB8C1636159500797BF9 /* HCSViewController.m in Sources */,
 				835912971644567800E4DAFE /* HCSTableCell.m in Sources */,
 				83CF9D80164599E40000B973 /* Reachability.m in Sources */,
+				83546D29164D6453001CE528 /* Tickets.xcdatamodeld in Sources */,
+				83E350F21651A811003DB567 /* Ticket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +489,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		83546D27164D6453001CE528 /* Tickets.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83546D28164D6453001CE528 /* Tickets.xcdatamodel */,
+			);
+			currentVersion = 83546D28164D6453001CE528 /* Tickets.xcdatamodel */;
+			path = Tickets.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D311FB6B1636159500797BF9 /* Project object */;
 }

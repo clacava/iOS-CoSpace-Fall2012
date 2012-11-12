@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 #import "Reachability.h"
+#import "Ticket.h"
 
-@interface HCSViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
+
+@interface HCSViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
 //@property (nonatomic, copy,   readwrite) NSString * filePath;
 //@property (nonatomic, strong, readwrite) NSOutputStream * fileStream;
@@ -19,5 +22,12 @@
 @property (nonatomic, strong, readwrite) NSURLConnection *  connection;
 @property (nonatomic, strong, readwrite) NSArray *responseItemsArray;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+@property (nonatomic, retain) Ticket *ticket;
+
+
 
 @end

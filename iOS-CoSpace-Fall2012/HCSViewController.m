@@ -8,7 +8,11 @@
 
 #import "HCSViewController.h"
 #import "HCSTableCell.h"
+#import "HCSAppDelegate.h"
 #define kReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
+#define AppDelegate (HCSAppDelegate *)[[UIApplication sharedApplication] delegate]
+
+
 
 @interface HCSViewController ()
 
@@ -18,6 +22,8 @@
 
 - (void)viewDidLoad
 {
+        
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:kReachabilityChangedNotification
@@ -29,6 +35,7 @@
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog( @"Block Says Reachable");
+            [self startReceive];
          });
     };
     
@@ -48,15 +55,12 @@
     };
     
     [reach startNotifier];
-    [self startReceive];
-    
    
  }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+     // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -64,10 +68,46 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+#pragma mark - Fetched results controller
 
-/***************************************************************************************************
- Note to Carl: There is still a bug here where the "unreachable" state with erroneously be tripped when resuming network connection.  I'll continue to try and track that down but I wanted to get this checked in for review.
- **************************************************************************************************/
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ticket" inManagedObjectContext:[AppDelegate managedObjectContext]];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    //[fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"closed_at" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[AppDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+	NSError *error = nil;
+	if (![self.fetchedResultsController performFetch:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    abort();
+	}
+    
+    return _fetchedResultsController;
+}
+
+//reachability
 -(void)reachabilityChanged:(NSNotification*)note
 {
     Reachability * reach = [note object];
@@ -151,7 +191,7 @@
     
     
      httpResponse = (NSHTTPURLResponse *) response;
-    assert( [httpResponse isKindOfClass:[NSHTTPURLResponse class]] );
+    assert( [httpResponse isKindOfClass:[NSHTTPURLResponse class]] );// if return here, this is recoverable - would maek the app crash
     
     
     if ((httpResponse.statusCode / 100) != 2 && (httpResponse.statusCode / 100) != 3) {
@@ -170,9 +210,7 @@
     }
 }
 
-/***************************************************************************************************
- Note to Carl:  I could not get the fileStream in Apple's example to wrok here but I was able to stick the response in an NSData Object.  Is this a legit way of doing this?
-**************************************************************************************************/ 
+
 - (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)data
 // A delegate method called by the NSURLConnection as data arrives.
 {
@@ -190,29 +228,70 @@
     NSLog(@"Receive Stopped with Status: %@", statusString);
 }
 
+
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)theConnection
 {
     [self stopReceiveWithStatus:@"Received"];
     
+    
+    
     NSError *e = nil;
     self.responseItemsArray = [NSJSONSerialization JSONObjectWithData:self.dataContainer options:NSJSONReadingMutableContainers error:&e];
+    
+    NSLog(@"Array count: %d",self.responseItemsArray.count);
     
     if (!self.responseItemsArray) {
         NSLog(@"Error parsing JSON: %@", e);
     } else {
+        // NSManagedObjectContext *context =  self.managedObjectContext;
+        
+        NSLog(@"Context: %@", [AppDelegate managedObjectContext]);
+        
         for(NSDictionary *item in self.responseItemsArray) {
-            //   NSLog(@"Item: %@", item);
+         
+            Ticket * newTicket = [NSEntityDescription insertNewObjectForEntityForName:@"Ticket"
+                                 inManagedObjectContext:[AppDelegate managedObjectContext]];
+            
+             NSLog(@"Item: %@", item);
+            
+            newTicket.state = [item objectForKey:@"state"];
+            newTicket.title = [item objectForKey:@"title"];
+            newTicket.closed_at = [item objectForKey:@"closed_at"];
+            newTicket.login = [item valueForKeyPath:@"user.login"];
+            newTicket.avatar = [item valueForKeyPath:@"user.avatar_url"];
+        
+           //No Worky
+          // NSData *userAvatar = [NSData dataWithContentsOfURL:[NSURL URLWithString:[item valueForKeyPath:@"user.avatar_url"]]];
+          // [newTicket setValue:userAvatar forKey:@"avatar"];
+            
+         //   NSLog(@"Ticket: %@", newTicket);
+                        
         }
+        
+        [AppDelegate saveContext];
     }
     
     [self.tableView reloadData];
+    
+   /*
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error%@",error);
+        abort();
+    }*/
+
 
 }
 
 //UITable Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.responseItemsArray.count;
+    //return self.responseItemsArray.count;
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    return [sectionInfo numberOfObjects];
+  
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -223,35 +302,38 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  HCSTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell"];
+  
+  
+  
     
+    //Old JSON based table cell
+    HCSTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell"];
     if (cell == nil) {
-        
-        NSDictionary *responseItem = [[NSDictionary alloc] initWithDictionary: [self.responseItemsArray objectAtIndex:indexPath.row]];
-        
-         //NSLog(@"Response Item: %@", responseItem);
+               
        
-        NSDictionary *user = [responseItem objectForKey:@"user"];
-        
-        
-        // Create a temporary UIViewController to instantiate the custom cell.
         UIViewController *temporaryController = [[UIViewController alloc] initWithNibName:@"HCSTableCell" bundle:nil];
         // Grab a pointer to the custom cell.
         cell = (HCSTableCell *)temporaryController.view;
         
-       UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"avatar_url"]]]];
+      
         
+        Ticket *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+         cell.username.text = object.login;
+         cell.state.text = object.state;
+         cell.created.text = object.closed_at;
+         cell.title.text = object.title;
+        
+        //if you put this on a seperate thread, lag would disipate, perform selector
+       
+        UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:                                                                             object.avatar]]];
         cell.avatar.image = avatar;
-        cell.username.text = [user objectForKey:@"login"];
-        cell.title.text = [responseItem objectForKey:@"title"];
-        cell.state.text = [responseItem objectForKey:@"state"];
-        cell.created.text = [responseItem objectForKey:@"closed_at"];
-        
-
-      }
+    }
     
     return cell;
 }
+
+
+//CORE DATA
 
 
 
